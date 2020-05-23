@@ -13,7 +13,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Taskmanager</a>
+    <a class="navbar-brand" href="#" th:text="#{titlenavbar}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,10 +21,10 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/tasks}">Overview </a>
+                <a class="nav-link" th:href="@{/tasks}" th:text="#{overviewnavbar}"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/tasks/new}">New</a>
+                <a class="nav-link" href="#"th:text="#{newnavbar}"></a>
             </li>
         </ul>
     </div>
@@ -36,10 +36,10 @@
         <p th:text="${ding.description}"></p>
         <p th:text="${ding.duedate}"></p>
 
-        <a class="btn btn-primary" th:href="@{/tasks/edit/{id}(id=${ding.id})}" role="button">Edit task</a>
+        <a class="btn btn-primary" th:href="@{/tasks/edit/{id}(id=${ding.id})}" role="button" th:text="#{edittaskbtn}"></a>
 
         <span th:if="${!ding.subtasks.isEmpty()}">
-            <h4>Subtasks</h4>
+            <h4 th:text="#{subtaskheader}"></h4>
         <table class="table table-striped">
             <tbody>
             <tr th:each="sub : ${ding.subtasks}">
@@ -50,7 +50,7 @@
         </table>
         </span>
 
-        <a class="btn btn-primary" th:href="@{/tasks/{id}/sub/create(id=${ding.id})}" role="button">Add subtask</a>
+        <a class="btn btn-primary" th:href="@{/tasks/{id}/sub/create(id=${ding.id})}" role="button" th:text="#{addsubtaskbtn}"></a>
     </div>
 
 </main>
