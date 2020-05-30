@@ -3,6 +3,7 @@ package com.ucll.Taskmanager.domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +24,7 @@ public class Task {
     private String title;
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Future
     private LocalDateTime duedate;
     @NotEmpty
     @Size(max=250)
@@ -45,7 +47,7 @@ public class Task {
         this.subtasks = new ArrayList<>();
     }
     public Task(){
-        this.id = UUID.randomUUID();
+        this.id = null;
         this.subtasks = new ArrayList<>();
     }
 

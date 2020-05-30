@@ -51,44 +51,46 @@ public class TaskServiceImpl implements TaskService {
         task.setDescription(taskDTO.getDescription());
         task.setDuedate(taskDTO.getDuedate());
         task.setTitle(taskDTO.getTitle());
-
+        task.setId(taskDTO.getId());
         repo.save(task);
     }
 
     @Override
     public TaskDTO getTaskDTOByID(UUID id) {
         Task task = repo.getOne(id);
-        TaskDTO dto = new TaskDTO();
-        dto.setId(task.getId());
-        dto.setDuedate(task.getDuedate());
-        dto.setDescription(task.getDescription());
-        dto.setTitle(task.getTitle());
-        dto.setSubtasks(task.getSubtasks()
-                .stream().map(subTask -> {
-            SubTaskDTO subTaskDTO = new SubTaskDTO();
-            subTaskDTO.setId(subTask.getId());
-            subTaskDTO.setTitle(subTask.getTitle());
-            subTaskDTO.setDescription(subTask.getDescription());
 
-            return subTaskDTO;
-        }).collect(Collectors.toList())
+        TaskDTO taskdto = new TaskDTO();
+        taskdto.setId(task.getId());
+        taskdto.setDuedate(task.getDuedate());
+        taskdto.setDescription(task.getDescription());
+        taskdto.setTitle(task.getTitle());
+        taskdto.setSubtasks(task.getSubtasks()
+                .stream().map(subTask -> {
+                    SubTaskDTO subTaskDTO = new SubTaskDTO();
+                    subTaskDTO.setId(subTask.getId());
+                    subTaskDTO.setTitle(subTask.getTitle());
+                    subTaskDTO.setDescription(subTask.getDescription());
+
+                    return subTaskDTO;
+            }).collect(Collectors.toList())
         );
-        return dto;
+        return taskdto;
     }
 
     @Override
     public Task getTasksById(UUID id) {
-        return  repo.getOne(id);
+        Task t =  repo.getOne(id);
+        return t;
     }
 
     @Override
-        public void editTask(UUID id, Task task) {
-            Task t = repo.getOne(id);
-            t.setId(task.getId());
-            t.setDescription(task.getDescription());
-            t.setDuedate(task.getDuedate());
-            t.setTitle(task.getTitle());
-            repo.save(t);
+    public void editTask(UUID id, Task task) {
+        Task t = repo.getOne(id);
+        t.setId(task.getId());
+        t.setDescription(task.getDescription());
+        t.setDuedate(task.getDuedate());
+        t.setTitle(task.getTitle());
+        repo.save(t);
     }
 
     @Override
@@ -109,7 +111,7 @@ public class TaskServiceImpl implements TaskService {
         sub.setTitle(subTaskDTO.getTitle());
         sub.setId(subTaskDTO.getId());
 
-        Task task = getTasksById(id);
+        Task task = this.getTasksById(id);
         task.addSubtasks(sub);
         repo.save(task);
     }

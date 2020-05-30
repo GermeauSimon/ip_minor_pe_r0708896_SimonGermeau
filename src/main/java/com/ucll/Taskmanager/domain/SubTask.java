@@ -17,7 +17,6 @@ public class SubTask {
     @Id
     @GeneratedValue
     private UUID id;
-
     @NotEmpty
     @Size(min=3)
     private String title;
@@ -37,6 +36,7 @@ public class SubTask {
     public SubTask(String title, String description) {
         this.title = title;
         this.description = description;
+        this.id = UUID.randomUUID();
     }
     public SubTask(){
 

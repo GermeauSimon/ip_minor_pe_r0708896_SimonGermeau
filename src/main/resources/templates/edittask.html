@@ -37,8 +37,6 @@
 
             <h4 th:text="#{edittasktitle}"></h4>
 
-            <p th:text="${#fields.globalErrors()}"></p>
-
             <label for="title" th:text="#{newtitle}"></label>
             <input class="form-control" type="text" name="title" id="title" th:field="*{title}">
             <p th:errors="*{title}"></p>

@@ -37,8 +37,6 @@
 
             <h4 th:text="#{newsubheader}"></h4>
 
-            <p th:text="${#fields.globalErrors()}"></p>
-
             <label for="title" th:text="#{newtitle}"></label>
             <input class="form-control" type="text" name="title" id="title" >
             <p th:errors="*{title}"></p>

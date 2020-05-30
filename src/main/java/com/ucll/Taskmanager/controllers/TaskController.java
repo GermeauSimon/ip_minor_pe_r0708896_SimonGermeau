@@ -6,11 +6,14 @@ import com.ucll.Taskmanager.dto.SubTaskDTO;
 import com.ucll.Taskmanager.dto.TaskDTO;
 import com.ucll.Taskmanager.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.UUID;
 
@@ -78,12 +81,29 @@ public class TaskController {
     }
 
     @PostMapping(path = "/tasks/{id}/sub/create")
-    public String createSubTaskPost(@ModelAttribute("subtask") @Valid SubTaskDTO subtask, @PathVariable("id") UUID id, BindingResult bindingResult){
+    public String createSubTaskPost(@PathVariable("id") UUID id, @ModelAttribute("subtask") @Valid SubTaskDTO subtask, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
+            model.addAttribute("task", taskService.getTasksById(id));
             return "createsubtask";
         }
         taskService.createSubTask(id, subtask);
         return "redirect:/tasks/"+id;
+    }
+
+    @GetMapping("/error")
+    public String error(HttpServletRequest request){
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
+        if(status != null){
+            int code = Integer.valueOf(status.toString());
+
+            if(code == HttpStatus.NOT_FOUND.value()){
+                return "error-404";
+            }else if(code == HttpStatus.INTERNAL_SERVER_ERROR.value()){
+                return "error-500";
+            }
+        }
+        return "error";
     }
 
 }

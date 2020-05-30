@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 public class TaskDTO {
 
+
     private UUID id;
 
     @NotEmpty
@@ -22,6 +24,7 @@ public class TaskDTO {
     private String title;
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Future
     private LocalDateTime duedate;
     @NotEmpty
     @Size(max=250)
@@ -65,6 +68,6 @@ public class TaskDTO {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.id = id;;
     }
 }
