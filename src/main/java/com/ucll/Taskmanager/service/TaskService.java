@@ -24,4 +24,7 @@ public interface TaskService {
     void editTaskDTO(TaskDTO taskDTO);
 
     void createSubTask(UUID id, SubTaskDTO subTaskDTO);
+
+    void deleteTask(UUID id);
+
 }

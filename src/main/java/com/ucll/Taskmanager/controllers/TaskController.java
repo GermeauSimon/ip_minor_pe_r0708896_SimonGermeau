@@ -80,6 +80,12 @@ public class TaskController {
         return "createsubtask";
     }
 
+    @GetMapping(path = "/tasks/{id}/delete")
+    public String deleteTask(@PathVariable("id") UUID id,Model model){
+        taskService.deleteTask(id);
+        return getTasks(model);
+    }
+
     @PostMapping(path = "/tasks/{id}/sub/create")
     public String createSubTaskPost(@PathVariable("id") UUID id, @ModelAttribute("subtask") @Valid SubTaskDTO subtask, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){

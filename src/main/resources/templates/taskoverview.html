@@ -49,12 +49,14 @@
             <tr>
                 <th scope="col" th:text="#{overviewtablehead1}"></th>
                 <th scope="col" th:text="#{overviewtablehead2}"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="task : ${tasks}">
                 <td><a th:href="@{/tasks/{id}(id=${task.id})}" th:text="*{task.title}"></a></td>
                 <td th:text="*{task.duedate}"></td>
+                <td><a th:href="@{/tasks/{id}/delete(id=${task.id})}" th:text="#{deletetask}"></a></td>
             </tr>
             </tbody>
         </table>

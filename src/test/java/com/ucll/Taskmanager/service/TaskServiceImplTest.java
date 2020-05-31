@@ -48,7 +48,27 @@ public class TaskServiceImplTest {
 
     @Test
     @Transactional
-    public void addSubTask(){
+    public void deleteTaskTest(){
+        SubTaskDTO sub = new SubTaskDTO();
+        List<SubTaskDTO> subtasks = new ArrayList<>();
+        subtasks.add(sub);
+
+        TaskDTO t = new TaskDTO();
+        t.setDescription("testdesc");
+        t.setTitle("test");
+        t.setId(UUID.randomUUID());
+        t.setDuedate(LocalDateTime.of(2021,7,27,13,15));
+        t.setSubtasks(subtasks);
+
+        this.service.addTask(t);
+        assertFalse(this.service.getTasks().isEmpty());
+        this.service.deleteTask(this.service.getTasks().get(0).getId());
+        assertTrue(this.service.getTasks().isEmpty());
+    }
+
+    @Test
+    @Transactional
+    public void addSubTaskTest(){
 
         UUID id = UUID.randomUUID();
 

@@ -70,7 +70,6 @@ public class TaskServiceImpl implements TaskService {
                     subTaskDTO.setId(subTask.getId());
                     subTaskDTO.setTitle(subTask.getTitle());
                     subTaskDTO.setDescription(subTask.getDescription());
-
                     return subTaskDTO;
             }).collect(Collectors.toList())
         );
@@ -84,12 +83,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public void deleteTask(UUID id){
+        Task task = repo.getOne(id);
+        repo.delete(task);
+    }
+
+    @Override
     public void editTask(UUID id, Task task) {
         Task t = repo.getOne(id);
         t.setId(task.getId());
+        t.setTitle(task.getTitle());
         t.setDescription(task.getDescription());
         t.setDuedate(task.getDuedate());
-        t.setTitle(task.getTitle());
         repo.save(t);
     }
 
